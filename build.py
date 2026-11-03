@@ -21,6 +21,10 @@ OUT = 'lite/index.html'
 P = []
 def p(old, new, n=1): P.append((old, new, n))
 
+# ---------- My Bitcoin Plan (single page): no amounts, no position ----------
+p("+(S.own?r('Current position',eur(cur())+(S.cost?' · cost '+eur(+S.cost):'')):'')+(S.own&&+S.addcap>0?r('Capital you plan to add',eur(+S.addcap)):'')+(S.own&&S.othx==='yes'?r('Other crypto and leveraged positions',(+S.othv>0?eur(+S.othv)+'<br>':'')+'<small style=\"color:var(--mu)\">Information only, outside this plan</small>'):'')+r('Capital',S.cap?eur(cap())+' · '+(pct()||'—')+'% of wealth':'—')],", "],")
+p("[4,'Management',r('Position',useBtc()?fmtB(S.btc)+' BTC · ≈ '+eur(+S.cur||0):eur(+S.cur||0))+r('Range'", "[4,'Management',r('Range'")
+
 # ---------- Edition ----------
 p("const ED='full';", "const ED='lite';")
 
@@ -70,12 +74,8 @@ p("<p class=\"sub\">Choose up to two. They become the criteria for comparing ins
   "<p class=\"sub\">Choose up to two. They stay in your plan as your own priorities.</p>")
 
 # ---------- My Bitcoin Plan ----------
-p("${S.own?r('Current position',eur(cur())+(S.cost?' · cost '+eur(+S.cost):'')):''}${S.own&&+S.addcap>0?r('Capital you plan to add',eur(+S.addcap)):''}${S.own&&S.othx==='yes'?r('Other crypto and leveraged positions',(+S.othv>0?eur(+S.othv)+'<br>':'')+'<small style=\"color:var(--mu)\">Information only, outside this plan</small>'):''}", "")
-p("${r('Capital',eur(cap())+' · '+pct()+'% of wealth')}", "")
-p("${r('Tolerated fall',L('tol')+' ('+eur(cap()*S.tol/100)+')')}", "${r('Tolerated fall',L('tol'))}")
 
 # ---------- Plan overview and change menu ----------
-p("${S.own?row('Current position',eur(cur())+(S.cost?' · cost '+eur(+S.cost):'')):''}${row('Capital',S.cap?eur(cap())+' · '+(S.pct||'—')+'% of wealth':'—')}", "")
 p("${b(S.own?'Current position and wealth':'Capital and share of wealth',S.cap?eur(cap())+' · '+(S.pct||'—')+'%':'Not set',S.own?'own1':'l1c')}", "")
 
 p("${S.own?'<div class=\"note\">You already hold Bitcoin. Check that the way you hold it still fits the priorities you chose.</div>':''}", "")
@@ -113,7 +113,6 @@ p("<button class=\"btn ghost\" onclick=\"go('alloc1')\">Make a new allocation${o
 p("${posRow()}${row('Amount paid',eur(+S.cost||0))}", "${row('Your range',(S.rmin||'—')+'% to '+(S.max||'—')+'% of your wealth')}${row('Adding',L('add'))}${row('Reducing',L('red'))}")
 p("<button class=\"btn ghost\" onclick=\"S.edit=false;go('l4a')\">Update my position and rules</button><button class=\"btn ghost\" onclick=\"go('alloc1')\">Make a new allocation</button>",
   "<button class=\"btn ghost\" onclick=\"S.edit=false;go('l4b')\">Update my range and rules</button>")
-p("<button class=\"btn ghost\"  onclick=\"go('alloc1')\">Make a new allocation${osTag()}</button>", "")
 p("${S.l2?`<button class=\"opt wi\" onclick=\"go('alloc1')\">${hic('manage')}<div><b>Make a new allocation${osTag()}</b><small>See what changes before you add capital.</small></div></button>`:''}", "")
 p("${Y('New allocation check',['—','✓'])}", "")
 p("${row('Allocation',sh!==null?sh.toFixed(1)+'% · range '+(S.rmin||'—')+'% to '+(S.max||'—')+'%':'—')}",
@@ -121,7 +120,7 @@ p("${row('Allocation',sh!==null?sh.toFixed(1)+'% · range '+(S.rmin||'—')+'% t
 # allocation check screens removed
 
 # ---------- Decision log: no amounts ----------
-p("row(x.date+' · '+eur(x.amt),esc(x.dec))", "row(x.date,esc(x.dec))", 3)
+p("row(x.date+' · '+eur(x.amt),esc(x.dec))", "row(x.date,esc(x.dec))", 1)
 p("<small>${x.date} · ${eur(x.amt)}</small>", "<small>${x.date}</small>")
 
 # ---------- Learn decision check: worst outcome in words ----------
@@ -136,8 +135,6 @@ p("<p class=\"fine\" style=\"margin-top:12px\">Example amount. Yours appears onc
 p("<p class=\"fine\">Example: Bitcoin at 10% of wealth. Yours appears once you set your plan.</p>", "<p class=\"fine\">Example: Bitcoin at 10% of wealth.</p>", 2)
 
 # ---------- Playbook ----------
-p("+row('Capital',eur(cap())+' · '+pct()+'% of wealth'))}", ")}")
-p("row('Position',useBtc()?fmtB(S.btc)+' BTC · ≈ '+eur(+S.cur||0):eur(+S.cur||0))+", "")
 
 # ---------- CBO Review: self-check, not measurement ----------
 p("const rvSt=n=>`<div class=\"rst\">${['Position','Strategy','Security','Decision']", "const rvSt=n=>`<div class=\"rst\">${['Rules','Strategy','Security','Decision']")
