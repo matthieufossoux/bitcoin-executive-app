@@ -161,6 +161,23 @@ p("it(rg(C[o.al],1,o.alv,''),'Allocation',o.als,C[o.al],\"navTo('manage')\",'All
   "it(rg(C[o.al],1,o.alv,''),'Range check',o.als,C[o.al],\"go('review')\",'Range check, '+o.als)")
 
 
+# ---------- Copy: lite never records or measures what the user holds ----------
+p("Run the position against your plan.", "Run your rules and your review dates.")
+p("Levels 1 to 3 built your plan. Level 4 turns it into a managed position, and managing is ongoing work.",
+  "Levels 1 to 3 built your plan. Level 4 turns your rules into a routine, and keeping it is ongoing work.")
+p("A guided check of your position, range and thesis, on the rhythm you chose.",
+  "A guided check of your range, rules and thesis, on the rhythm you chose.")
+p("Level 4 turns it into a managed position. ${S.trialUsed", "Level 4 turns your rules into a routine. ${S.trialUsed")
+p("Each chapter: a few cards, your numbers, a decision, then a quick check.",
+  "Each chapter: a few cards, worked examples, a decision, then a quick check.")
+p("Next: turn the position into a managed system.", "Next: turn your plan into a managed routine.")
+p("${S.own?' and start from the position you entered':''}", "")
+p("a <b>record</b> of what you hold and paid", "a <b>record</b> you keep of what you hold and paid")
+p("a record of what you hold and paid", "a record you keep of what you hold and paid")
+p("Record what you hold and paid, set your range, and choose your review rhythm.",
+  "Set your range and your rules, and choose your review rhythm.", 2)
+
+
 # ---------- Whole screens and helpers removed from lite (not hidden: cut out) ----------
 GOMANAGE = "custom:1,body:()=>'',post:()=>{stack=['home','manage'];draw()}},\n"
 CUT_SCREENS = {
@@ -227,7 +244,9 @@ def build():
         sys.exit(1)
     # Safety net: nothing in lite may still ask for or show the user's money figures.
     forbidden = ['How much Bitcoin do you hold?', 'Your wealth outside Bitcoin</h3>', 'Total amount you paid',
-                 'Make a new allocation', 'How much capital are you considering?', 'FROM YOUR PLAN']
+                 'Make a new allocation', 'How much capital are you considering?', 'FROM YOUR PLAN',
+                 'Run the position against your plan', 'A guided check of your position', 'your numbers, a decision',
+                 'Record what you hold and paid']
     leaks = [f for f in forbidden if f in t]
     if leaks:
         print('LITE BUILD FAILED. Full-edition text still reachable:', leaks)
